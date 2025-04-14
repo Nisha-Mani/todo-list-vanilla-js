@@ -28,6 +28,7 @@ function addTask() {
     completed: false,
   };
   tasks.push(task);
+  totalTasksCount++;
   userInput.value = "";
   saveTasks();
   renderTasks();
@@ -44,10 +45,17 @@ function renderTasks() {
     let checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     checkBox.checked = task.completed;
+    li.style.textDecoration = checkBox.checked ? "line-through" : "none";
     checkBox.addEventListener("change", () => {
       task.completed = checkBox.checked;
       li.style.textDecoration = checkBox.checked ? "line-through" : "none";
+      completedTasksCount = checkBox.checked
+        ? ++completedTasksCount
+        : --completedTasksCount;
+      console.log(completedTasksCount);
+      updateCounters();
       saveTasks();
+      renderTasks();
     });
 
     //delete button
@@ -56,6 +64,10 @@ function renderTasks() {
     deleteButton.addEventListener("click", () => {
       li.remove();
       tasks.splice(index, 1);
+      completedTasksCount = checkBox.checked
+        ? --completedTasksCount
+        : completedTasksCount;
+      updateCounters();
       saveTasks();
       renderTasks();
     });
@@ -71,8 +83,8 @@ function renderTasks() {
 
 function updateCounters() {
   //update total and completed tasks counters
-  // totalTaskCounterText.innerText = totalTasksCount;
-  // completedTaskCounterText.innerHTML = completedTasksCount;
+  totalTaskCounterText.innerText = tasks.length;
+  completedTaskCounterText.innerHTML = completedTasksCount;
 }
 
 function saveTasks() {
