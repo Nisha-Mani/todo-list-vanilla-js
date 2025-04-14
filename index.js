@@ -4,14 +4,20 @@ let todoList = document.getElementById("todoList");
 let totalTaskCounterText = document.getElementById("totalTasksCounter");
 let completedTaskCounterText = document.getElementById("completedTasksCounter");
 
-let totalTasksCount = 0;
-let completedTasksCount = 0;
+let totalTasksCount;
+let completedTasksCount;
 let tasks = [];
+
 try {
   tasks = loadTasksFromLocalStorage();
 } catch {
-  console.log("Empty Tasks!");
+  console.log("Error parsing task. Empty list!");
+  tasks = [];
 }
+
+//render tasks on refresh
+updateCounters();
+renderTasks();
 
 addButton.addEventListener("click", addTask);
 //add task on enter key
@@ -34,6 +40,7 @@ function addTask() {
   tasks.push(task);
   totalTasksCount++;
   userInput.value = "";
+  updateCounters();
   saveTasks();
   renderTasks();
 }
@@ -88,7 +95,8 @@ function renderTasks() {
 function updateCounters() {
   //update total and completed tasks counters
   totalTaskCounterText.innerText = tasks.length;
-  completedTaskCounterText.innerHTML = completedTasksCount;
+  completedTasksCount = tasks.filter((task) => task.completed).length;
+  completedTaskCounterText.innerText = completedTasksCount;
 }
 
 function saveTasks() {
@@ -99,6 +107,6 @@ function saveTasks() {
 
 function loadTasksFromLocalStorage() {
   //load tasks from local storage
-  localStorage.getItem("task");
-  return tasks ? JSON.parse(tasks) : [];
+  const loadedTasks = localStorage.getItem("tasks");
+  return loadedTasks ? JSON.parse(loadedTasks) : [];
 }
