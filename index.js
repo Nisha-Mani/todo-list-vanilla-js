@@ -22,6 +22,10 @@ userInput.addEventListener("keydown", (event) => {
 });
 
 function addTask() {
+  if (userInput.value === "") {
+    alert("you have entered a blank task. Try again");
+    return;
+  }
   //add task obj to tasks array
   let task = {
     text: userInput.value,
