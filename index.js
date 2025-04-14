@@ -4,6 +4,7 @@ let todoList = document.getElementById("todoList");
 let totalTaskCounterText = document.getElementById("totalTasksCounter");
 let completedTaskCounterText = document.getElementById("completedTasksCounter");
 let noTaskTag = document.getElementById("noTaskText");
+let selectDropDownList = document.getElementById("filterDropDown");
 
 let totalTasksCount;
 let completedTasksCount;
@@ -15,10 +16,26 @@ try {
   console.log("Error parsing task. Empty list!");
   tasks = [];
 }
+let filterSelected = "all";
+selectDropDownList.addEventListener("change", () => {
+  switch (selectDropDownList.value) {
+    case "all":
+      filterSelected = "all";
+      break;
+    case "completed":
+      filterSelected = "completed";
+      break;
+    case "incomplete":
+      filterSelected = "incomplete";
+      break;
+  }
+
+  renderTasks(filterSelected);
+});
 
 //render tasks on refresh
 updateCounters();
-renderTasks();
+renderTasks(filterSelected);
 
 addButton.addEventListener("click", addTask);
 
@@ -44,13 +61,29 @@ function addTask() {
   userInput.value = "";
   updateCounters();
   saveTasks();
-  renderTasks();
+  //shows all tasks when adding a new task to todo
+  filterSelected = "all";
+  selectDropDownList.value = filterSelected;
+  renderTasks(filterSelected);
 }
 
-function renderTasks() {
+function renderTasks(filter) {
   todoList.innerHTML = "";
+  let tasksToDisplay = [];
+  switch (filter) {
+    case "all":
+      tasksToDisplay = tasks;
+      break;
+    case "completed":
+      tasksToDisplay = tasks.filter((task) => task.completed);
+      break;
+    case "incomplete":
+      tasksToDisplay = tasks.filter((task) => !task.completed);
+      break;
+  }
+
   //render tasks to the DOM
-  tasks.forEach((task, index) => {
+  tasksToDisplay.forEach((task, index) => {
     let li = document.createElement("li");
     let taskText = document.createTextNode(task.text);
 
@@ -65,10 +98,9 @@ function renderTasks() {
       completedTasksCount = checkBox.checked
         ? ++completedTasksCount
         : --completedTasksCount;
-      console.log(completedTasksCount);
       updateCounters();
       saveTasks();
-      renderTasks();
+      renderTasks(filterSelected);
     });
 
     //delete button
@@ -82,7 +114,7 @@ function renderTasks() {
         : completedTasksCount;
       updateCounters();
       saveTasks();
-      renderTasks();
+      renderTasks(filterSelected);
     });
 
     //append to list
@@ -111,7 +143,6 @@ function updateCounters() {
 function saveTasks() {
   //save tasks to local storage
   localStorage.setItem("tasks", JSON.stringify(tasks));
-  console.log(tasks);
 }
 
 function loadTasksFromLocalStorage() {
