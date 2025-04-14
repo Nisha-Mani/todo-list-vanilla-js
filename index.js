@@ -3,6 +3,7 @@ let addButton = document.getElementById("addButton");
 let todoList = document.getElementById("todoList");
 let totalTaskCounterText = document.getElementById("totalTasksCounter");
 let completedTaskCounterText = document.getElementById("completedTasksCounter");
+let noTaskTag = document.getElementById("noTaskText");
 
 let totalTasksCount;
 let completedTasksCount;
@@ -20,6 +21,7 @@ updateCounters();
 renderTasks();
 
 addButton.addEventListener("click", addTask);
+
 //add task on enter key
 userInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
@@ -94,7 +96,14 @@ function renderTasks() {
 
 function updateCounters() {
   //update total and completed tasks counters
-  totalTaskCounterText.innerText = tasks.length;
+  totalTasksCount = tasks.length;
+  totalTaskCounterText.innerText = totalTasksCount;
+  //add a note to h tag if there are no tasks
+  if (totalTasksCount === 0) {
+    noTaskTag.innerHTML = "No Task Yet";
+  } else {
+    noTaskTag.innerHTML = "";
+  }
   completedTasksCount = tasks.filter((task) => task.completed).length;
   completedTaskCounterText.innerText = completedTasksCount;
 }
