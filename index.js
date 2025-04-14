@@ -16,7 +16,7 @@ try {
 addButton.addEventListener("click", addTask);
 //add task on enter key
 userInput.addEventListener("keydown", (event) => {
-  if (event.key == "enter") {
+  if (event.key === "Enter") {
     addTask();
   }
 });
@@ -48,7 +48,6 @@ function renderTasks() {
       task.completed = checkBox.checked;
       li.style.textDecoration = checkBox.checked ? "line-through" : "none";
       saveTasks();
-      renderTasks();
     });
 
     //delete button
