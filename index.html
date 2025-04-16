@@ -5,25 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="index.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1> TO-DO List</h1>
-    <h3> Add a task </h3>
-    <input type="text" id="userInput" placeholder="Add a new task">
-    <button id="addButton">Add</button>
+    <div class = "container">
+        <h1> TO-DO List</h1>
+        <h3> Add a task </h3>
 
-    <h3>Your list </h3>
-    <h5 id="noTaskText">No Task Yet</h5>
-    <label for="filter">Select your filter</label>
-    <select name="filer" id = "filterDropDown">
-        <option value="all">All</option>
-        <option value="completed">Completed</option>
-        <option value="incomplete">Incomplete</option>
-    </select>
-    <ul id="todoList">
-    </ul>
+        <div class = "input-section">
+            <input type="text" id="userInput" placeholder="Add a new task">
+            <button id="addButton">Add</button>
+        </div>
 
-    <h4>Total Tasks: </h4> <p id="totalTasksCounter">0</p>
-    <h4>Completed Tasks: </h4> <p id="completedTasksCounter">0</p>
+        <h3>Your list </h3>
+        <h5 id="noTaskText">No Task Yet</h5>
+        <label for="filter">Select your filter</label>
+        <select name="filer" id = "filterDropDown">
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="incomplete">Incomplete</option>
+        </select>
+
+        <ul id="todoList"></ul>
+
+        <div class="counters">
+            <h4>Total Tasks: </h4> <p id="totalTasksCounter">0</p>
+            <h4>Completed Tasks: </h4> <p id="completedTasksCounter">0</p>
+        </div>
+    </div>
 </body>
 </html>

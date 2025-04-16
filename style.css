@@ -1,0 +1,73 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f2f2f2;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  }
+  
+  .input-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  input[type="text"] {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  button {
+    padding: 0.5rem 0.8rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  ul#todoList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  ul#todoList li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 6px;
+    border-radius: 8px;
+  }
+  
+  select {
+    margin-bottom: 1rem;
+    padding: 0.4rem;
+    font-size: 1rem;
+  }
+  
+  .counters {
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  
+  #noTaskText {
+    color: #999;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
