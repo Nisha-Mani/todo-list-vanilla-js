@@ -85,19 +85,29 @@ function renderTasks(filter) {
   //render tasks to the DOM
   tasksToDisplay.forEach((task, index) => {
     let li = document.createElement("li");
-    let taskText = document.createTextNode(task.text);
+
+    //create text span element
+    let taskText = document.createElement("span");
+    taskText.textContent = task.text;
+    if (task.completed) {
+      taskText.style.textDecoration = "line-through";
+    }
 
     //checkbox
     let checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     checkBox.checked = task.completed;
-    li.style.textDecoration = checkBox.checked ? "line-through" : "none";
+
     checkBox.addEventListener("change", () => {
       task.completed = checkBox.checked;
-      li.style.textDecoration = checkBox.checked ? "line-through" : "none";
+      taskText.style.textDecoration = checkBox.checked
+        ? "line-through"
+        : "none";
+
       completedTasksCount = checkBox.checked
         ? ++completedTasksCount
         : --completedTasksCount;
+
       updateCounters();
       saveTasks();
       renderTasks(filterSelected);
@@ -122,7 +132,9 @@ function renderTasks(filter) {
     editButton.textContent = "Edit";
     let inputBox = document.createElement("input");
     inputBox.type = "text";
+
     if (task.completed) editButton.disabled = true;
+
     editButton.addEventListener("click", () => {
       //replace the li text with a input box
       inputBox.value = task.text;
@@ -130,9 +142,12 @@ function renderTasks(filter) {
       //lets user directly type by bringing the cursor to the element
       inputBox.focus();
     });
+
     inputBox.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         task.text = inputBox.value;
+        taskText.textContent = task.text;
+        li.replaceChild(taskText, inputBox);
         updateCounters();
         saveTasks();
         renderTasks(filterSelected);

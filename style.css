@@ -70,4 +70,14 @@ body {
     margin-top: 1rem;
     text-align: center;
   }
+
+  .completed-task {
+    text-decoration: line-through;
+    color: gray;
+  }
+
+  .task-text {
+    margin-right: 10px;
+  }
+  
   
