@@ -117,9 +117,32 @@ function renderTasks(filter) {
       renderTasks(filterSelected);
     });
 
+    //edit button
+    let editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    let inputBox = document.createElement("input");
+    inputBox.type = "text";
+    if (task.completed) editButton.disabled = true;
+    editButton.addEventListener("click", () => {
+      //replace the li text with a input box
+      inputBox.value = task.text;
+      li.replaceChild(inputBox, taskText);
+      //lets user directly type by bringing the cursor to the element
+      inputBox.focus();
+    });
+    inputBox.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        task.text = inputBox.value;
+        updateCounters();
+        saveTasks();
+        renderTasks(filterSelected);
+      }
+    });
+
     //append to list
     li.appendChild(checkBox);
     li.appendChild(taskText);
+    li.appendChild(editButton);
     li.appendChild(deleteButton);
 
     todoList.append(li);
